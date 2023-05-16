@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InicioComponent } from './pagina/inicio/inicio.component';
@@ -8,13 +9,19 @@ import { LoginComponent } from './pagina/login/login.component';
 import { RegistroComponent } from './pagina/registro/registro.component';
 import { AdminComponent } from './pagina/admin/admin.component';
 import { VentasComponent } from './pagina/ventas/ventas.component';
-import { ProductosComponent } from './pagina/productos/productos.component';
+import { ProductosComponent } from './pagina/crearProductos/productos.component';
 import { ChatComponent } from './pagina/chat/chat.component';
 import { UsuariosComponent } from './pagina/usuarios/usuarios.component';
 import { FavoritosComponent } from './pagina/favoritos/favoritos.component';
 import { ComprasComponent } from './pagina/compras/compras.component';
 import { ComentariosComponent } from './pagina/comentarios/comentarios.component';
 import { TransaccionComponent } from './pagina/transaccion/transaccion.component';
+import { BusquedaComponent } from './pagina/busqueda/busqueda.component';
+import { DetalleProductoComponent } from './pagina/detalle-producto/detalle-producto.component';
+import { GestionProductosComponent } from './pagina/gestion-productos/gestion-productos.component';
+import { CarritoComponent } from './pagina/carrito/carrito.component';
+import { AlertaComponent } from './pagina/alerta/alerta.component';
+
 
 @NgModule({
   declarations: [
@@ -30,11 +37,18 @@ import { TransaccionComponent } from './pagina/transaccion/transaccion.component
     FavoritosComponent,
     ComprasComponent,
     ComentariosComponent,
-    TransaccionComponent
+    TransaccionComponent,
+    BusquedaComponent,
+    DetalleProductoComponent,
+    GestionProductosComponent,
+    CarritoComponent,
+    AlertaComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

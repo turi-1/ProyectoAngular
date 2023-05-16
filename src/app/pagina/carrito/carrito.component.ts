@@ -13,6 +13,7 @@ export class CarritoComponent {
 
   productos: DetalleCompraDTO[];
   valorTotal: number;
+  
   constructor(private carritoService: CarritoService, private productoService: ProductoService) {
 
     this.productos = [];

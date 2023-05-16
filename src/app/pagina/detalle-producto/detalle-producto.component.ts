@@ -10,13 +10,13 @@ import { CarritoService } from 'src/app/servicios/carrito.service';
 export class DetalleProductoComponent {
 
 productos: ProductoGetDTO[];
-codigoProducto: number = 0;
+codigo: number = 0;
 
 constructor(private carritoService:CarritoService){
 this.productos = [];
 }
 
   public agregarCarrito(){
-    this.carritoService.agregar(this.codigoProducto);
+    this.carritoService.agregar(this.codigo);
     }
 }

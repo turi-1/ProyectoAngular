@@ -1,40 +1,24 @@
 <div class="container">
-<div class="row row-cols-1 row-cols-md-3 g-4" *ngFor="let item of productos">
-  <div class="col">
-    <div class="card h-100">
+<div class="col" *ngFor="let item of productos">
+    <div class="card">
       <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" class="card-img-top" alt="Hollywood Sign on The Hill"/>
       <div class="card-body" >
         <h5 class="card-title" >{{item.nombre}}</h5>
-        <p class="card-text">
-         {{item.precio}}
-        </p>
+        <p class="card-text"> $ {{item.precio}}</p>
+        <button (click)="agregarCarrito()" class="btn btn-outline-primary" 
+        data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito <i class="bi bi-minecart "></i></button>
       </div>
     </div>
-  </div>
-  <div class="col">
-    <div class="card h-100">
-      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp" class="card-img-top" alt="Palm Springs Road"/>
-      <div class="card-body">
-        <h5 class="card-title">{{item.nombre}}</h5>
-        <p class="card-text">$ {{item.precio}}</p>
+</div>
+<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Producto agregado   <i class="bi bi-check"></i></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card h-100">
-      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" class="card-img-top" alt="Los Angeles Skyscrapers"/>
-      <div class="card-body">
-        <h5 class="card-title">{{item.nombre}}</h5>
-        <p class="card-text">$ {{item.precio}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="col">
-    <div class="card h-100">
-      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" class="card-img-top" alt="Los Angeles Skyscrapers"/>
-      <div class="card-body">
-        <h5 class="card-title">{{item.nombre}}</h5>
-        <p class="card-text">$ {{item.precio}}</p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

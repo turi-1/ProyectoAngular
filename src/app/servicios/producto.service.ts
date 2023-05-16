@@ -10,13 +10,14 @@ export class ProductoService {
   
   constructor(){
   this.productos = [];
-  this.productos.push(new ProductoGetDTO(2, "tenis Nike", "Descripcion 2", 4352, 4,["https://picsum.photos/450/225"], ["ROPA", "DEPORTE"]));
-  this.productos.push(new ProductoGetDTO(3, "relojes", "Descripcion 3", 235235, 4,["https://picsum.photos/450/225"], ["RELOJERIA"]));
-  this.productos.push(new ProductoGetDTO(4, "televisor", "Descripcion 4", 56756, 4,["https://picsum.photos/450/225"], ["TELEVIDORES"]));
-  this.productos.push(new ProductoGetDTO(5, "celulares", "Descripcion 5", 464353, 4,["https://picsum.photos/450/225"], ["CELULARES"]));
-  this.productos.push(new ProductoGetDTO(6, "parlantes", "Descripcion 6", 5756, 4,["https://picsum.photos/450/225"], ["EQUIPOS DE SONIDO"]));
-  this.productos.push(new ProductoGetDTO(7, "joyas", "Descripcion 7", 23523, 4,["https://picsum.photos/450/225"], ["JOYERIA"]));
-  this.productos.push(new ProductoGetDTO(8, "cadenas", "Descripcion 8", 4664, 4,["https://picsum.photos/450/225"], ["CADENAS"]));
+  this.productos.push(new ProductoGetDTO(2, "Tenis Nike", "Descripcion 2", 4.352, 4,["https://picsum.photos/450/223"], ["ROPA", "DEPORTE"]));
+  this.productos.push(new ProductoGetDTO(3, "Relojes", "Descripcion 3", 235.235, 4,["https://picsum.photos/450/224"], ["RELOJERIA"]));
+  this.productos.push(new ProductoGetDTO(4, "Televisor", "Descripcion 4", 56.756, 4,["https://picsum.photos/450/225"], ["CADENAS"]));
+  this.productos.push(new ProductoGetDTO(5, "Celulares", "Descripcion 5", 464.353, 4,["https://picsum.photos/450/226"], ["CELULARES"]));
+  this.productos.push(new ProductoGetDTO(6, "Parlantes", "Descripcion 6", 5.756, 4,["https://picsum.photos/450/227"], ["EQUIPOS DE SONIDO"]));
+  this.productos.push(new ProductoGetDTO(7, "Joyas", "Descripcion 7", 23.523, 4,["https://picsum.photos/450/228"], ["JOYERIA"]));
+  this.productos.push(new ProductoGetDTO(8, "Cadenas", "Descripcion 8", 4.664, 4,["https://picsum.photos/450/229"], ["CADENAS"]));
+  this.productos.push(new ProductoGetDTO(9, "Hogar", "Descripcion 9", 8.646, 5,["https://picsum.photos/450/222"], ["HOGAR"]));
   }
   public listar():ProductoGetDTO[]{
   return this.productos;

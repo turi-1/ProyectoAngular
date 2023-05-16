@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductoGetDTO } from 'src/app/modelo/producto-get-dto';
+import { CarritoService } from 'src/app/servicios/carrito.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
 
 @Component({
@@ -10,12 +11,15 @@ import { ProductoService } from 'src/app/servicios/producto.service';
 export class InicioComponent {
 
   productos: ProductoGetDTO[];
-  
-  constructor(private productoServicio: ProductoService) {
+  codigo: number = 0;
+
+  constructor(private productoServicio: ProductoService, private carritoService:CarritoService) {
     this.productos = [];
   }
   ngOnInit(): void {
     this.productos = this.productoServicio.listar();
-
     }
+    public agregarCarrito(){
+      this.carritoService.agregar(this.codigo);
+      }
 }

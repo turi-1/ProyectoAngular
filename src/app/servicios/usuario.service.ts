@@ -7,6 +7,8 @@ import { MensajeDTO } from '../modelo/mensaje-dto';
   providedIn: 'root'
 })
 export class UsuarioService {
+
+
   private userUrl = "http://localhost:8080/api/usuarios";
   constructor(private http: HttpClient) { }
   public obtener(codigo: number): Observable<MensajeDTO> {

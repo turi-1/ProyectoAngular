@@ -9,7 +9,7 @@ import { ProductoService } from 'src/app/servicios/producto.service';
 })
 export class GestionProductosComponent {
 
-  productos: ProductoGetDTO[];
+    productos: ProductoGetDTO[];
   textoBtnEliminar: string = "";
   seleccionados: ProductoGetDTO[];
 

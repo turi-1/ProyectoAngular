@@ -38,4 +38,5 @@ export class TokenService {
     const values = JSON.parse(payloadDecoded);
     return values;
     }
+
 }

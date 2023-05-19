@@ -21,6 +21,7 @@ import { DetalleProductoComponent } from './pagina/detalle-producto/detalle-prod
 import { GestionProductosComponent } from './pagina/gestion-productos/gestion-productos.component';
 import { CarritoComponent } from './pagina/carrito/carrito.component';
 import { AlertaComponent } from './pagina/alerta/alerta.component';
+import { VerDetalleComponent } from './pagina/ver-detalle/ver-detalle.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { AlertaComponent } from './pagina/alerta/alerta.component';
     GestionProductosComponent,
     CarritoComponent,
     AlertaComponent,
+    VerDetalleComponent,
   ],
   imports: [
     BrowserModule,

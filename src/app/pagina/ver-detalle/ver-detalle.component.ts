@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProductoDTO } from 'src/app/modelo/producto-dto';
-import { CategoriaService } from 'src/app/servicios/categoria.service';
-import { ImagenService } from 'src/app/servicios/imagen.service';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ProductoService } from 'src/app/servicios/producto.service';
+import { ProductoDTO } from 'src/app/modelo/producto-dto';
+import { CarritoService } from 'src/app/servicios/carrito.service';
+import { ProductoGetDTO } from 'src/app/modelo/producto-get-dto';
+import { ImagenService } from 'src/app/servicios/imagen.service';
+import { CategoriaService } from 'src/app/servicios/categoria.service';
 
 @Component({
-  selector: 'app-productos',
-  templateUrl: './productos.component.html',
-  styleUrls: ['./productos.component.css']
+  selector: 'app-ver-detalle',
+  templateUrl: './ver-detalle.component.html',
+  styleUrls: ['./ver-detalle.component.css']
 })
-export class ProductosComponent  {
+export class VerDetalleComponent {
 
   producto:ProductoDTO;
   archivos!:FileList;
@@ -19,9 +21,12 @@ export class ProductosComponent  {
   txtBoton: string = "Crear Producto";
   esEdicion = false;
   codigoProducto: number = 0;
+  filtro: ProductoGetDTO[];
+  codigo: number =0;
 
-  constructor(private route:ActivatedRoute, private imagenService: ImagenService, private categoriaService: CategoriaService){
+  constructor(private route:ActivatedRoute, private imagenService: ImagenService, private categoriaService: CategoriaService, private carritoService: CarritoService){
     this.categorias = "";
+    this.filtro = [];
     this.producto= new ProductoDTO();
     this.productoService = new ProductoService();
     this.route.params.subscribe(params => {
@@ -58,10 +63,10 @@ export class ProductosComponent  {
     }
     private cargarCategorias(){
       this.categoriaService.listar().subscribe({
-      next: data => {
+      next: (data: { respuesta: string; }) => {
         this.categorias = data.respuesta;
       },
-      error: error => {
+      error: (error: { error: any; }) => {
       console.log(error.error);
       }
       });
@@ -74,10 +79,10 @@ export class ProductosComponent  {
         const formData = new FormData();
         formData.append('file', this.archivos[0]);
         this.imagenService.subir(formData).subscribe({
-        next: data => {
+        next: (data: { respuesta: string; }) => {
         objeto.imagen.push( data.respuesta);
         },
-        error: error => {
+        error: (error: { error: any; }) => {
         console.log(error.error);
         }
         });
@@ -85,5 +90,10 @@ export class ProductosComponent  {
         console.log('Debe seleccionar al menos una imagen y subirla');
         }
         }
+        public agregarCarrito(){
+          this.carritoService.agregar(this.codigoProducto);
+          }
+      
+      
         
 }

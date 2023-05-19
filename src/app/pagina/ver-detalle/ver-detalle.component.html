@@ -1,6 +1,6 @@
 <div id="formContent">
     <div class="card p-5">
-        <form #f="ngForm" (ngSubmit)="crearProducto()" >
+        <form #f="ngForm" (ngSubmit)="crearProducto()">
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre: </label>
                 <div class="col-sm-10">
@@ -13,8 +13,9 @@
                 <label class="col-sm-2 col-form-label">Precio: </label>
                 <div class="col-sm-10">
                     <input #precio="ngModel" class="form-control" [ngClass]="precio.invalid &&
-                (precio.dirty || precio.touched) ? 'is-invalid' : ''" type="number" name="precio"
+                (precio.dirty || precio.touched) ? 'is-invalid' : ''" type="text" name="precio"
                         [(ngModel)]="producto.precio" required maxlength="50" />
+                    
                 </div>
             </div>
             <div class="mb-3 row">
@@ -27,34 +28,21 @@
             </div>
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Imagen: </label>
-                <div class="col-sm-7">
-                    <input type="file" class="form-control" name="imagenes" (change)="onFileChange($event)" multiple />
-                </div>
-                <div class="col-sm-3">
-                    <button type="submit" [disabled]="archivos == null" class="btn btn-primary"
-                        (click)="subirImagenes()">
-
-                        <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir imágenes
-                    </button>
-                </div>
+        
+                
             </div>
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Categoria: </label>
+                <input #categorias="ngModel" class="form-control" [ngClass]="categorias.invalid &&
+                (categorias.dirty || categorias.touched) ? 'is-invalid' : ''" type="text" name="categorias"
+                        [(ngModel)]="producto.categorias" required maxlength="50" />
                 <div class="col-sm-10">
 
                     <br>
-                    <div class="form-check">
-                        <input type="checkbox" [value]="i+1" *ngFor="let item of categorias; index as i"
-                            [(ngModel)]="producto.categorias" class="form-check-input" name="categoria" value=""
-                            selected>
-                        <option type="checkbox" [value]="i+1" *ngFor="let item of categorias; index as i">{{item}}
-                        </option>
-
-                    </div>
+                    <span class="badge text-bg-primary me-2" *ngFor="let cat categorias">{{cat}}</span>
                 </div>
             </div>
-            <button type="submit" [disabled]="f.invalid" class="btn btn-sm1 btn-outline-primary me-2" (click)="crearProducto()">
-                Crear <i class="bi bi-clipboard-plus"></i></button>
+            <button (click)="agregarCarrito()" class="btn btn-outline-primary me-2" >Agregar al carrito <i class="bi bi-cart-plus"></i></button>
                 <button type="submit" class="btn btn-sm1 btn-outline-primary" routerLink="/gestion-productos">
                     Volver <i class="bi bi-arrow-bar-left"></i></button>
         </form>

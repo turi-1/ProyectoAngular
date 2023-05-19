@@ -1,7 +1,10 @@
 <div class="card p-5">
     <form #f="ngForm" *ngIf="productos.length > 0">
         <div class="table-responsive text-center">
-            <table class="table table-hover">
+            <button type="button" class="btn btn-outline-danger"data-bs-toggle="modal"
+            data-bs-target="#borrar"><i class="fa-solid fa-trash me-1"></i> Eliminar
+            {{textoBtnEliminar}}<i class="bi bi-trash"></i></button>
+            <table class="table table-hover" id="table">
                 <thead>
                     <tr>
                         <th></th>
@@ -9,6 +12,7 @@
                         <th style="width: 20%;">Precio</th>
                         <th style="width: 20%;">Unidades</th>
                         <th style="width: 20%;">Subtotal</th>
+                        <th style="width: 20%;">Seleccionar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,28 +27,56 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <span>$ {{item.productos.precio}}</span>
+                            <span>$ {{item.productos.precio }}</span>
                         </td>
                         <td class="align-middle">
 
-                            <input type="number" name="unidades" class="form-control
+                        <input id="value" type="number" name="unidades" class="form-control
     
-    text-center" [(ngModel)]="item.unidades" min="0" />
+                         text-center" [(ngModel)]="item.unidades" min="0" />
 
                         </td>
                         <td class="align-middle">
-                            <span>$ CALCULAR VALOR (Mutiplicar precio por unidades)</span>
+                            <span  id="total" >$ {{item.productos.precio * item.unidades}}</span>
                         </td>
+                        <td class="align-middle" *ngFor="let item of gestionProductos">
+
+                           <input  #check class="form-check-input" type="checkbox" 
+                           (change)="seleccionar(item, check.checked)"  />
+                             </td>
                     </tr>
+            
                 </tbody>
+               
             </table>
         </div>
+        <div class="modal fade" id="borrar" tabindex="-1" aria-labelledby="borrarModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="borrarModalLabel">Eliminar producto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea sacar del carrito?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    (click)="borrarProductos()">Sí</button>
+                </div>
+            </div>
+        </div>
+    </div>
         <div class="mt-5 d-flex justify-content-end">
             <div class="text-end">
                 <h4>Valor a pagar: ${{valorTotal}}</h4>
-                <button class="btn btn-primary"><i class="fa-regular fa-credit-card"></i>
-
-                    Comprar</button>
+                <button type="submit" class="btn btn-sm1 btn-outline-primary me-2" >
+                    Comprar <i class="bi bi-bag-check"></i></button>
+                <button type="submit" class="btn btn-sm1 btn-outline-primary" routerLink="/gestion-productos">
+                    Volver <i class="bi bi-arrow-bar-left"></i></button>
             </div>
         </div>
     </form>
@@ -52,4 +84,5 @@
         <i class="fa-solid fa-triangle-exclamation"></i><span class="ms-3">No hay elementos en
             el carrito</span>
     </div>
+    
 </div>

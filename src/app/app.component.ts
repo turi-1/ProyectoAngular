@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './servicios/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,10 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'Unimarket';
 
-  constructor(private router:Router){
-    
+  constructor(private loginPrd:AuthService){
+
+  }  
+  public visualizarMenu():boolean{
+    return this.loginPrd.habilitarlogeo();
   }
-  
-  public iraBusqueda(valor:string){
-    if(valor){
-      this.router.navigate(["/busqueda", valor]);
-}
-}
 }

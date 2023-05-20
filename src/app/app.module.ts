@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +22,8 @@ import { GestionProductosComponent } from './pagina/gestion-productos/gestion-pr
 import { CarritoComponent } from './pagina/carrito/carrito.component';
 import { AlertaComponent } from './pagina/alerta/alerta.component';
 import { VerDetalleComponent } from './pagina/ver-detalle/ver-detalle.component';
+import { UsuarioIngresadoComponent } from './pagina/usuario-ingresado/usuario-ingresado.component';
+import { InicioGeneralComponent } from './pagina/inicio-general/inicio-general.component';
 
 
 @NgModule({
@@ -45,12 +47,15 @@ import { VerDetalleComponent } from './pagina/ver-detalle/ver-detalle.component'
     CarritoComponent,
     AlertaComponent,
     VerDetalleComponent,
+    UsuarioIngresadoComponent,
+    InicioGeneralComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

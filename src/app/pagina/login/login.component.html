@@ -1,24 +1,86 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <!-- Tabs Titles -->
-        <!-- Icon -->
-        <div class="fadeIn first">
-            <img src="assets/img/user2.png" />
-        </div>
-        <!-- Login Form -->
-        <form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username">
-            <input type="text" id="password" class="fadeIn third" name="login" placeholder="Password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
-        </form>
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
-        </div>
+<header class="p-3 text-bg-dark">
+    <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center
+    justify-content-lg-start">
+    <a routerLink="" class="d-flex align-items-center mb-2 mb-lg-0 text-white
+    text-decoration-none">
+    <i class="bi bi-houses"></i>
+    <span class="fs-4 ms-3 me-3" >{{title}}</span>
+    </a>
+    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+    <li><a routerLink="/" class="nav-link px-2 text-secondary">Inicio</a></li>
+    </ul>
+    <div class="text-end">
+    <button type="button" routerLink="/login" class="btn btn-outline-light
+    me-2">Login</button>
+    <button type="button" routerLink="/registro" class="btn btn-warning">Sign-up</button>
     </div>
+    </div>
+    </div>
+    </header>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <div class="fadeIn first">
+                <img src="assets/img/user2.png" />
+            </div>
+    <form class="container"  [formGroup]="myForm" (ngSubmit)="submitFormulario()">
+        <div class="mb-3">
+            <i class="bi bi-person-circle"></i> <input formControlName="usuario" [class.is-invalid]="f.usuario.errors && f.usuario.touched"  type="email" class="form-control" id="exampleFormControlInput1" placeholder="Nombre de Usuario">
+            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                Usuario obligatorio
+              </div>
+            </div>
+        
+          <div class="mb-3">
+            <i class="bi bi-key"></i><input formControlName="password" [class.is-invalid]="f.password.errors && f.password.touched" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Contraseña">
+            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                contraseña obligatoria
+              </div>
+          </div>
+          <div class="mb-3">
+            <button class="btn btn-outline-success">Ingresar</button>
+          </div>
+    </form>
 </div>
+</div>
+    <div class="container">
+        <app-inicio></app-inicio>
+    </div>
+  <div >
+    <footer class="bg-dark text-center text-white" >
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Facebook -->
+          <a  href="#!" role="button"
+            ><img src="" /></a>
+    
+          <!-- Twitter -->
+          <a href="#!" role="button"
+            ><img src="" />
+          </a>
+  
+          <!-- Instagram -->
+          <a  href="#!" role="button"
+            ><img src="" />
+          </a>
+        </section>
+        <!-- Section: Social media -->
+      </div>
+      <!-- Grid container -->
+    
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2020 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+  </div>
+
+

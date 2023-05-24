@@ -10,27 +10,31 @@ import { CategoriaService } from 'src/app/servicios/categoria.service';
 @Component({
   selector: 'app-ver-detalle',
   templateUrl: './ver-detalle.component.html',
-  styleUrls: ['./ver-detalle.component.css']
+  styleUrls: ['./ver-detalle.component.css'],
 })
 export class VerDetalleComponent {
-
-  producto:ProductoDTO;
-  archivos!:FileList;
-  categorias:string;
+  producto: ProductoDTO;
+  archivos!: FileList;
+  categorias: string;
   productoService: any;
-  txtBoton: string = "Crear Producto";
+  txtBoton: string = 'Crear Producto';
   esEdicion = false;
   codigoProducto: number = 0;
   filtro: ProductoGetDTO[];
-  codigo: number =0;
+  codigo: number = 0;
 
-  constructor(private route:ActivatedRoute, private imagenService: ImagenService, private categoriaService: CategoriaService, private carritoService: CarritoService){
-    this.categorias = "";
+  constructor(
+    private route: ActivatedRoute,
+    private imagenService: ImagenService,
+    private categoriaService: CategoriaService,
+    private carritoService: CarritoService
+  ) {
+    this.categorias = '';
     this.filtro = [];
-    this.producto= new ProductoDTO();
+    this.producto = new ProductoDTO();
     this.productoService = new ProductoService();
-    this.route.params.subscribe(params => {
-      this.codigoProducto = <number>params["codigo"];
+    this.route.params.subscribe((params) => {
+      this.codigoProducto = <number>params['codigo'];
       let objetoProducto = this.productoService.obtener(this.codigoProducto);
       if (objetoProducto != null) {
         this.producto = objetoProducto;
@@ -40,60 +44,56 @@ export class VerDetalleComponent {
     });
   }
   public crearProducto() {
-    if(this.producto.imagen.length > 0) {
-    this.productoService.crear(this.producto).subscribe({
-    next: (data: { respuesta: any; }) => {
-    console.log(data.respuesta);
-  },
-  error: (error: { error: any; }) => {
-  console.log(error.error);
-  }
-  });
-  } else {
-  console.log('Debe seleccionar al menos una imagen y subirla');
-  }
+    if (this.producto.imagen.length > 0) {
+      this.productoService.crear(this.producto).subscribe({
+        next: (data: { respuesta: any }) => {
+          console.log(data.respuesta);
+        },
+        error: (error: { error: any }) => {
+          console.log(error.error);
+        },
+      });
+    } else {
+      console.log('Debe seleccionar al menos una imagen y subirla');
+    }
   }
 
-  onFileChange(event:any){
+  onFileChange(event: any) {
     if (event.target.files.length > 0) {
-    const files = event.target.files;
-    console.log(files);
+      const files = event.target.files;
+      console.log(files);
     }
-    
-    }
-    private cargarCategorias(){
-      this.categoriaService.listar().subscribe({
-      next: (data: { respuesta: string; }) => {
+  }
+  private cargarCategorias() {
+    this.categoriaService.listar().subscribe({
+      next: (data: { respuesta: string }) => {
         this.categorias = data.respuesta;
       },
-      error: (error: { error: any; }) => {
-      console.log(error.error);
-      }
-      });
-      }
-      
-      // en data.respuesta tiene que ir url al final
-      public subirImagenes() {
-        if (this.archivos != null && this.archivos.length > 0) {
-        const objeto = this.producto;
-        const formData = new FormData();
-        formData.append('file', this.archivos[0]);
-        this.imagenService.subir(formData).subscribe({
-        next: (data: { respuesta: string; }) => {
-        objeto.imagen.push( data.respuesta);
-        },
-        error: (error: { error: any; }) => {
+      error: (error: { error: any }) => {
         console.log(error.error);
-        }
-        });
-        } else {
-        console.log('Debe seleccionar al menos una imagen y subirla');
-        }
-        }
-        public agregarCarrito(){
-          this.carritoService.agregar(this.codigoProducto);
-          }
-      
-      
-        
+      },
+    });
+  }
+
+  // en data.respuesta tiene que ir url al final
+  public subirImagenes() {
+    if (this.archivos != null && this.archivos.length > 0) {
+      const objeto = this.producto;
+      const formData = new FormData();
+      formData.append('file', this.archivos[0]);
+      this.imagenService.subir(formData).subscribe({
+        next: (data: { respuesta: string }) => {
+          objeto.imagen.push(data.respuesta);
+        },
+        error: (error: { error: any }) => {
+          console.log(error.error);
+        },
+      });
+    } else {
+      console.log('Debe seleccionar al menos una imagen y subirla');
+    }
+  }
+  public agregarCarrito() {
+    this.carritoService.agregar(this.codigoProducto);
+  }
 }

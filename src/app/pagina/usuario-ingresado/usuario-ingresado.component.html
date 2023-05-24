@@ -1,63 +1,85 @@
 <header class="p-3 text-bg-dark">
-    <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center
-    justify-content-lg-start">
-    <a routerLink="" class="d-flex align-items-center mb-2 mb-lg-0 text-white
-    text-decoration-none">
-    <i class="bi bi-houses"></i>
-    <span class="fs-4 ms-3 me-3" >{{title}}</span>
-    </a>
-    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-|   <li><a routerLink="" class="nav-link px-2 text-secondary">Inicio</a></li>
-    <li><a routerLink="/gestion-productos" class="nav-link px-2 text-white">Mis productos</a></li>
-    <li><a routerLink="/chat" class="nav-link px-2 text-white">Mis compras</a></li>
-    <li><a routerLink="/carrito" class="nav-link px-2 text-white"><i class="bi bi-cart4 "></i></a></li>
-    </ul>
-    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"
-  (submit)="iraBusqueda(textoBusqueda.value)" >
-  <input #textoBusqueda type="search" class="form-control form-control-dark text-bg-dark"
-  placeholder="Search..." aria-label="Search">
-  </form>
-    <div class="text-end">
-    <button type="button" routerLink="/registro" class="btn btn-warning">Sign-out</button>
+  <div class="container">
+    <div
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+    >
+      <a
+        routerLink=""
+        class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+      >
+        <i class="bi bi-houses"></i>
+        <span class="fs-4 ms-3 me-3">{{ title }}</span>
+      </a>
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        |
+        <li>
+          <a routerLink="" class="nav-link px-2 text-secondary">Inicio</a>
+        </li>
+        <li>
+          <a routerLink="/gestion-productos" class="nav-link px-2 text-white">Mis productos</a>
+        </li>
+        <li>
+          <a routerLink="/compras" class="nav-link px-2 text-white">Mis compras</a>
+        </li>
+        <li>
+          <a routerLink="/favoritos" class="nav-link px-2 text-white">Favoritos</a>
+        </li>
+        <li>
+          <a routerLink="/carrito" class="nav-link px-2 text-white"
+            ><i class="bi bi-cart4"></i
+          ></a>
+        </li>
+      </ul>
+      <form
+        class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
+        role="search"
+        (submit)="iraBusqueda(textoBusqueda.value)"
+      >
+        <input
+          #textoBusqueda
+          type="search"
+          class="form-control form-control-dark text-bg-dark"
+          placeholder="Search..."
+          aria-label="Search"
+        />
+      </form>
+      <div class="text-end">
+        <button type="button" routerLink="/registro" class="btn btn-warning">
+          Sign-out
+        </button>
+      </div>
     </div>
-    </div>
-    </div>
-    </header>
-    <div class="seccion-pagina p-4">
-    <div class="container" >
+  </div>
+</header>
+<div class="seccion-pagina p-4">
+  <div class="container">
     <router-outlet></router-outlet>
+  </div>
+</div>
+<div>
+  <footer class="bg-dark text-center text-white">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a href="#!" role="button"><img src="" /></a>
+
+        <!-- Twitter -->
+        <a href="#!" role="button"><img src="" /> </a>
+
+        <!-- Instagram -->
+        <a href="#!" role="button"><img src="" /> </a>
+      </section>
+      <!-- Section: Social media -->
     </div>
-  </div>
-  <div >
-    <footer class="bg-dark text-center text-white" >
-      <!-- Grid container -->
-      <div class="container p-4 pb-0">
-        <!-- Section: Social media -->
-        <section class="mb-4">
-          <!-- Facebook -->
-          <a  href="#!" role="button"
-            ><img src="" /></a>
-    
-          <!-- Twitter -->
-          <a href="#!" role="button"
-            ><img src="" />
-          </a>
-  
-          <!-- Instagram -->
-          <a  href="#!" role="button"
-            ><img src="" />
-          </a>
-        </section>
-        <!-- Section: Social media -->
-      </div>
-      <!-- Grid container -->
-    
-      <!-- Copyright -->
-      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2020 Copyright:
-        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
-  </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      © 2023 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/">Unimarket.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+</div>

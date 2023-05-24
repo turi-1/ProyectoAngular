@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ProductoGetDTO } from '../../modelo/producto-get-dto';
+import { ProductoService } from '../../servicios/producto.service';
 
 @Component({
   selector: 'app-favoritos',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class FavoritosComponent {
 
+  productos: ProductoGetDTO[];
+
+  constructor(private productoServicio: ProductoService) {
+    this.productos = [];
+  }
+  ngOnInit(): void {
+    this.productos = this.productoServicio.listar();
+  }
 }

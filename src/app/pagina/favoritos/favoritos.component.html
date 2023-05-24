@@ -1,1 +1,40 @@
-<p>favoritos works!</p>
+<div class="container" style="border: 1px solid black">
+  <hr class="border border-2 opacity-50" />
+  <h2><i class="bi bi-heart-fill"></i> favoritos</h2>
+
+  <table class="table table-striped table-hover" style="text-align: center">
+    <thead>
+      <tr>
+        <th>Seleccionar</th>
+        <th>Imágenes</th>
+        <th>Precio</th>
+        <th>Descripcion</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr>
+        <td style="margin-top: 50%">
+          <input
+            #check
+            class="form-check-input"
+            type="checkbox"
+          /><!--(change)="seleccionar(item, check.checked)"-->
+        </td>
+        <td>
+          <img [src]="productos[0].imagen[0]" width="320" />
+        </td>
+        <td>
+          <p>
+            ${{ productos[0].precio }} <br />
+            <a class="btn btn-sm btn-outline-primary" role="button">
+              Eliminar
+            </a>
+          </p>
+        </td>
+        <td>
+          <p>{{ productos[0].descripcion }}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

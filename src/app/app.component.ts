@@ -5,17 +5,17 @@ import { AuthService } from './servicios/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-  
-  
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'Unimarket';
+  //title: String = 'Unimarket';
+  login: boolean = true;
 
-  constructor(private loginPrd:AuthService){
+  constructor(private loginPrd: AuthService) {
+    console.log(this.login);
+  }
 
-  }  
-  public visualizarMenu():boolean{
-    return this.loginPrd.habilitarlogeo();
+  public visualizarMenu() {
+    this.login = this.loginPrd.habilitarlogeo();
   }
 }

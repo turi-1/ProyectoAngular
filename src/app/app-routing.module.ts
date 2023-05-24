@@ -13,28 +13,29 @@ import { ComprasComponent } from './pagina/compras/compras.component';
 import { VerDetalleComponent } from './pagina/ver-detalle/ver-detalle.component';
 import { ChatComponent } from './pagina/chat/chat.component';
 import { InicioGeneralComponent } from './pagina/inicio-general/inicio-general.component';
+import { FavoritosComponent } from './pagina/favoritos/favoritos.component';
 
 const routes: Routes = [
-{path: "", component: InicioComponent},
-{path: "login", component: LoginComponent},
-{path: "registro", component: RegistroComponent},
-{path: "productos", component: ProductosComponent},
-{path: "busqueda/:texto", component: BusquedaComponent },
-{path: "busqueda/:codigo", component: BusquedaComponent },
-{path: "ver-detalle/:codigo", component: VerDetalleComponent },
-{path: "detalle-producto/:codigo", component: DetalleProductoComponent},
-{path: "gestion-productos", component: GestionProductosComponent},
-{path: "editar-producto/:codigo", component: ProductosComponent },
-{path: "carrito", component: CarritoComponent},
-{path: "admin", component: AdminComponent},
-{path: "compras", component: ComprasComponent},
-{path: "chat", component: ChatComponent},
-{path: "inicio", component: InicioGeneralComponent},
-
+  { path: '', component: InicioComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'registro', component: RegistroComponent },
+  { path: 'productos', component: ProductosComponent },
+  { path: 'busqueda/:texto', component: BusquedaComponent },
+  { path: 'busqueda/:codigo', component: BusquedaComponent },
+  { path: 'ver-detalle/:codigo', component: VerDetalleComponent },
+  { path: 'detalle-producto/:codigo', component: DetalleProductoComponent },
+  { path: 'gestion-productos', component: GestionProductosComponent },
+  { path: 'editar-producto/:codigo', component: ProductosComponent },
+  { path: 'carrito', component: CarritoComponent },
+  { path: 'admin', component: AdminComponent },
+  { path: 'compras', component: ComprasComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: 'favoritos', component: FavoritosComponent },
+  //{path: "inicio", component: InicioGeneralComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

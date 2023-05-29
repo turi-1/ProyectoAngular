@@ -14,23 +14,39 @@ import { VerDetalleComponent } from './pagina/ver-detalle/ver-detalle.component'
 import { ChatComponent } from './pagina/chat/chat.component';
 import { InicioGeneralComponent } from './pagina/inicio-general/inicio-general.component';
 import { FavoritosComponent } from './pagina/favoritos/favoritos.component';
+import { LoginGuard } from './guards/permiso.service';
+import { RevisarProductosComponentComponent } from './pagina/revisar-productos-component/revisar-productos-component.component';
+import { RolesGuard } from './guards/roles.service';
 
 const routes: Routes = [
   { path: '', component: InicioComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'registro', component: RegistroComponent },
-  { path: 'productos', component: ProductosComponent },
-  { path: 'busqueda/:texto', component: BusquedaComponent },
-  { path: 'busqueda/:codigo', component: BusquedaComponent },
+  { path: 'login', component: LoginComponent, canActivate : [LoginGuard] },
+  { path: 'registro', component: RegistroComponent, canActivate : [LoginGuard] },
+  { path: 'productos', component: ProductosComponent,canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] } },
+  { path: 'busqueda/:texto', component: BusquedaComponent, canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] } },
+  { path: 'busqueda/:codigo', component: BusquedaComponent, canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] } },
   { path: 'ver-detalle/:codigo', component: VerDetalleComponent },
   { path: 'detalle-producto/:codigo', component: DetalleProductoComponent },
-  { path: 'gestion-productos', component: GestionProductosComponent },
-  { path: 'editar-producto/:codigo', component: ProductosComponent },
-  { path: 'carrito', component: CarritoComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'compras', component: ComprasComponent },
-  { path: 'chat', component: ChatComponent },
-  { path: 'favoritos', component: FavoritosComponent },
+  { path: 'gestion-productos', component: GestionProductosComponent, canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] },  },
+  { path: 'editar-producto/:codigo', component: ProductosComponent,canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] }  },
+  { path: 'revisar-productos', component: RevisarProductosComponentComponent, canActivate: [RolesGuard], data : {
+    expectedRole: ["MODERADOR"]
+  }},
+  { path: 'carrito', component: CarritoComponent, canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] } },
+  { path: 'admin', component: AdminComponent, canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] } },
+  { path: 'compras', component: ComprasComponent, canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] } },
+  { path: 'chat', component: ChatComponent, canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] } },
+  { path: 'favoritos', component: FavoritosComponent , canActivate: [RolesGuard], data: {
+    expectedRole: ["CLIENTE"] } },
   //{path: "inicio", component: InicioGeneralComponent},
 ];
 

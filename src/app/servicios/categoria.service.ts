@@ -11,4 +11,8 @@ export class CategoriaService {
   public listar(): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.catURL}/listar`);
   }
+
+  public listarPorCategoria(categoria : string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.catURL}/listarCategoria/${categoria}`);
+  }
 }

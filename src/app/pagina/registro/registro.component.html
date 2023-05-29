@@ -37,6 +37,18 @@
             </div>
 
             <div class="mb-3 row">
+              <label class="label" >Cedula:</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="bi bi-card-heading"></i></div>
+                </div>
+                <input #cedula="ngModel" type="text" class="form-control" id="inlineFormInputGroup" 
+                placeholder="cedula" [ngClass]="cedula.invalid && (cedula.dirty || cedula.touched) 
+                ? 'is-invalid' : ''" type="text" name="cedula" [(ngModel)]="usuario.cedula"  required >
+              </div>
+          </div>
+
+            <div class="mb-3 row">
                 <label class="label" >Teléfono:</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">

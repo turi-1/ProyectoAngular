@@ -5,20 +5,26 @@ import { Injectable } from '@angular/core';
 })
 export class CarritoService {
 
-  productos: number[];
+  carrito: number[];
   
   constructor() {
-    this.productos = [];
+    this.carrito = [];
   }
   public agregar(codigo: number) {
-    this.productos.push(codigo);
+    this.carrito.push(codigo);
   }
   public quitar(codigo: number) {
-    let indice = this.productos.indexOf(codigo);
-    this.productos.splice(indice, 1);
+    let indice = this.carrito.indexOf(codigo);
+    this.carrito.splice(indice, 1);
   }
+
+  public vaciarCarrito(){
+    
+    this.carrito = [];
+  }
+
   public listar(): number[] {
-    return this.productos;
+    return this.carrito;
   }
 }
 

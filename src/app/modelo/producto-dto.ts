@@ -1,10 +1,9 @@
 export class ProductoDTO {
-codigo: number = 0;
+codigoVendedor: number = 0;
 nombre: string = "";
 descripcion: string = "";
 precio: number = 0;
 unidades: number = 0;
-imagen: string[] = [];
+imagenes: string[] = [];
 categorias: string[] = [];
-producto: string [] = [];
 }

@@ -1,6 +1,6 @@
 <div id="formContent">
     <div class="card p-5">
-        <form #f="ngForm" (ngSubmit)="crearProducto()" >
+        <form #f="ngForm">
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre: </label>
                 <div class="col-sm-10">
@@ -9,6 +9,19 @@
                         [(ngModel)]="producto.nombre" required maxlength="50" />
                 </div>
             </div>
+
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">descripcion: </label>
+                <div class="col-sm-10">
+                    <textarea #descripcion="ngModel" class="form-control" [ngClass]="descripcion.invalid &&
+    (descripcion.dirty || descripcion.touched) ? 'is-invalid' : ''" name="descripcion"
+                        [(ngModel)]="producto.descripcion" required> </textarea>
+
+                </div>
+            </div>
+
+
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Precio: </label>
                 <div class="col-sm-10">
@@ -38,25 +51,42 @@
                     </button>
                 </div>
             </div>
+
+
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Categoria: </label>
                 <div class="col-sm-10">
 
                     <br>
                     <div class="form-check">
-                        <input type="checkbox" [value]="i+1" *ngFor="let item of categorias; index as i"
+                        <!-- <input type="checkbox" [value]="i+1" *ngFor="let item of categorias; index as i"
                             [(ngModel)]="producto.categorias" class="form-check-input" name="categoria" value=""
-                            selected>
-                        <option type="checkbox" [value]="i+1" *ngFor="let item of categorias; index as i">{{item}}
-                        </option>
+                            selected> -->
+
+                        <label class=" mt-3 form-check-label row" *ngFor="let categoria of  categorias; index as i">
+                            <input [value]="categoria" type="checkbox" [checked]="categoriaSeleccionadas.includes(categoria)" (change)="checkSeleccionado(categoria, $event)"
+                                class="form-checkbox h-5 w-5 text-indigo-650"><span
+                                class="ml-2 text-gray-700">{{categoria}}</span>
+                        </label>
+
+                        <!-- <option type="checkbox" [value]="i+1" *ngFor="let item of categorias; index as i">{{item}}
+                        </option> -->
 
                     </div>
                 </div>
             </div>
-            <button type="submit" [disabled]="f.invalid" class="btn btn-sm1 btn-outline-primary me-2" (click)="crearProducto()">
-                Crear <i class="bi bi-clipboard-plus"></i></button>
-                <button type="submit" class="btn btn-sm1 btn-outline-primary" routerLink="/gestion-productos">
-                    Volver <i class="bi bi-arrow-bar-left"></i></button>
+
+            <button type="submit" [disabled]="f.invalid" class="btn btn-sm1 btn-outline-primary me-2" (click)="!esEdicion ? crearProducto() : editarProducto()"> <i class="fa-solid
+                {{esEdicion ? 'fa-pencil' : 'bi bi-clipboard-plus'}} me-1"></i>{{ esEdicion ? 'Editar' : 'Crear' }}
+                Producto</button>
+
+
+            <!-- <button type="submit" [disabled]="f.invalid" class="btn btn-sm1 btn-outline-primary me-2"
+                (click)="crearProducto()">
+                Crear <i class="bi bi-clipboard-plus"></i></button> -->
+            <button type="submit" class="btn btn-sm1 btn-outline-primary" routerLink="/gestion-productos">
+                Volver <i class="bi bi-arrow-bar-left"></i></button>
+            <app-alerta [alerta]="alerta"></app-alerta>
         </form>
     </div>
 </div>

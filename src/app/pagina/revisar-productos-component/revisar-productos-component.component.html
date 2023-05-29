@@ -1,0 +1,133 @@
+<body>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <h2>Administrador</h2>
+    <div *ngFor="let item of estados" class="contenedor">
+
+        <p class="btn btn-outline-primary" (click)="listarPorEstado(item)" type="submit">{{ item }}</p>
+    </div>
+
+    <div class="contenedor">
+    <p class="btn btn-outline-primary" (click)="listarAll()" type="submit">todos</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Lista de Productos <b></b></h2>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Carousel indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <div class="col-sm-3 card" *ngFor="let item of productos">
+                                    <div class="thumb-wrapper">
+                                        <div class="img-box">
+                                            <img [src]="item.imagenes[0]" />
+                                        </div>
+                                        <div class="thumb-content">
+                                            <h4>{{item.estado}}</h4>
+                                            <h4>{{ item.nombre }}</h4>
+                                            <p class="item-price">
+                                                <span>${{ item.precio }}</span>
+                                            </p>
+                                            <!-- <div class="star-rating">
+                          <ul class="list-inline">
+                            <li class="list-inline-item">
+                              <i class="fa fa-star"></i>
+                            </li>
+                            <li class="list-inline-item">
+                              <i class="fa fa-star"></i>
+                            </li>
+                            <li class="list-inline-item">
+                              <i class="fa fa-star"></i>
+                            </li>
+                            <li class="list-inline-item">
+                              <i class="fa fa-star"></i>
+                            </li>
+                            <li class="list-inline-item">
+                              <i class="fa fa-star-o"></i>
+                            </li>
+                          </ul>
+                        </div> -->
+
+                                            <div
+                                                *ngIf=" item.estado == 'ESPERA'; then isEspera else ( item.estado == 'RECHAZADO' ? isRechazado : any )">
+                                            </div>
+
+                                            <ng-template #isEspera>
+
+                                                <button class="btn btn-sm btn-success" (click)="realizarAccion('ACEPTADO',item.codigo)" data-bs-toggle="modal"
+                                                data-bs-target="#borrar">
+                                                    <i class="bi bi-check-circle"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger" (click)="realizarAccion('RECHAZADO',item.codigo)" data-bs-toggle="modal"
+                                                data-bs-target="#borrar">
+                                                    <i class="bi bi-x-circle"></i>
+                                                </button>
+
+                                            </ng-template>
+
+                                            <ng-template #isRechazado>
+
+                                                <button class="btn btn-sm btn-success" (click)="realizarAccion('ACEPTADO',item.codigo)" data-bs-toggle="modal"
+                                                data-bs-target="#borrar">
+                                                    <i class="bi bi-check-circle"></i>
+                                                </button>
+
+                                            </ng-template>
+
+                                            <ng-template #any>
+
+                                            </ng-template>
+
+                                            <a class="btn btn-outline-primary"
+                                                routerLink="/ver-detalle/{{ item.codigo }}" role="button">Ver
+                                                detalle</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Carousel controls -->
+                    <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#myCarousels" data-slide-to="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <app-alerta [alerta]="alerta"></app-alerta>
+    </div>
+</body>
+
+<div class="modal fade" id="borrar" tabindex="-1" aria-labelledby="borrarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="borrarModalLabel">Eliminar producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Por favor escriba un motivo</p>
+                <input [(ngModel)]="moderador.motivo" #campoModalInput>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="ponerEstado()">Aceptar</button>
+                <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    (click)="borrarProductos()">Sí</button> -->
+            </div>
+        </div>
+    </div>
+</div>

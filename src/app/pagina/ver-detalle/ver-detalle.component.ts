@@ -6,6 +6,8 @@ import { CarritoService } from 'src/app/servicios/carrito.service';
 import { ProductoGetDTO } from 'src/app/modelo/producto-get-dto';
 import { ImagenService } from 'src/app/servicios/imagen.service';
 import { CategoriaService } from 'src/app/servicios/categoria.service';
+import { TokenService } from '../../servicios/token.service';
+import { Alerta } from 'src/app/modelo/alerta';
 
 @Component({
   selector: 'app-ver-detalle',
@@ -13,60 +15,60 @@ import { CategoriaService } from 'src/app/servicios/categoria.service';
   styleUrls: ['./ver-detalle.component.css'],
 })
 export class VerDetalleComponent {
-  producto: ProductoDTO;
+  producto: ProductoGetDTO;
   archivos!: FileList;
-  categorias: string;
-  productoService: any;
+  categorias: string[];
   txtBoton: string = 'Crear Producto';
   esEdicion = false;
   codigoProducto: number = 0;
+  alerta!: Alerta;
   filtro: ProductoGetDTO[];
   codigo: number = 0;
+  obtenerProducto(codigoProducto : number) : Promise<ProductoGetDTO >{
+
+    return new Promise<ProductoGetDTO>((resolve,reject) => {
+
+      this.productoService.obtener(codigoProducto).subscribe({
+        next: data => {
+          resolve(data.respuesta);
+          // this.producto = data.respuesta;
+          // this.categoriaSeleccionadas = this.producto.categorias;
+          // this.esEdicion = true;
+        },
+        error: error => {
+          reject();
+        },
+      });
+    })
+  }
 
   constructor(
     private route: ActivatedRoute,
     private imagenService: ImagenService,
     private categoriaService: CategoriaService,
-    private carritoService: CarritoService
+    private productoService:ProductoService,
+    private carritoService: CarritoService,
+    private tokenService: TokenService
   ) {
-    this.categorias = '';
+    this.categorias = [];
     this.filtro = [];
-    this.producto = new ProductoDTO();
-    this.productoService = new ProductoService();
+    this.producto = new ProductoGetDTO();
+
     this.route.params.subscribe((params) => {
       this.codigoProducto = <number>params['codigo'];
-      let objetoProducto = this.productoService.obtener(this.codigoProducto);
-      if (objetoProducto != null) {
-        this.producto = objetoProducto;
-        console.log(this.producto);
-        this.esEdicion = true;
-      }
+        this.obtenerProducto(this.codigoProducto).then(result => {
+          this.producto = result;
+      });
+
+      console.log(this.producto);
+
     });
   }
-  public crearProducto() {
-    if (this.producto.imagen.length > 0) {
-      this.productoService.crear(this.producto).subscribe({
-        next: (data: { respuesta: any }) => {
-          console.log(data.respuesta);
-        },
-        error: (error: { error: any }) => {
-          console.log(error.error);
-        },
-      });
-    } else {
-      console.log('Debe seleccionar al menos una imagen y subirla');
-    }
-  }
 
-  onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      const files = event.target.files;
-      console.log(files);
-    }
-  }
+  
   private cargarCategorias() {
     this.categoriaService.listar().subscribe({
-      next: (data: { respuesta: string }) => {
+      next: (data: { respuesta: string[] }) => {
         this.categorias = data.respuesta;
       },
       error: (error: { error: any }) => {
@@ -76,24 +78,34 @@ export class VerDetalleComponent {
   }
 
   // en data.respuesta tiene que ir url al final
-  public subirImagenes() {
-    if (this.archivos != null && this.archivos.length > 0) {
-      const objeto = this.producto;
-      const formData = new FormData();
-      formData.append('file', this.archivos[0]);
-      this.imagenService.subir(formData).subscribe({
-        next: (data: { respuesta: string }) => {
-          objeto.imagen.push(data.respuesta);
-        },
-        error: (error: { error: any }) => {
-          console.log(error.error);
-        },
-      });
-    } else {
-      console.log('Debe seleccionar al menos una imagen y subirla');
-    }
+  
+  public agregarCarrito(codigoProducto : number) {
+    this.carritoService.agregar(codigoProducto);
   }
-  public agregarCarrito() {
-    this.carritoService.agregar(this.codigoProducto);
+  
+
+  public ponerFavorito(codigo : number){
+
+    let codigoUsuario = this.tokenService.getUserId();
+    this.productoService.ponerFavorito(codigoUsuario, codigo).subscribe({
+      next: data => {
+        this.alerta = new Alerta("Se agrego el producto correctamente", "succes");
+      },
+      error : error => {
+        this.alerta = new Alerta(error.error.respuesta, "danger"); 
+      }
+    })
   }
+
+  // public obtenerProducto(cod: number){
+  //   this.productoService.obtener(cod).subscribe({
+  //     next: data => {
+  //       this.producto = data.respuesta;
+  //     },
+  //     error: (error: { error: any }) => {
+  //       console.log(error.error);
+  //     },
+  //   });
+  // }
+
 }

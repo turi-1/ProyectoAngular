@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InicioComponent } from './pagina/inicio/inicio.component';
@@ -24,6 +24,9 @@ import { AlertaComponent } from './pagina/alerta/alerta.component';
 import { VerDetalleComponent } from './pagina/ver-detalle/ver-detalle.component';
 import { UsuarioIngresadoComponent } from './pagina/usuario-ingresado/usuario-ingresado.component';
 import { InicioGeneralComponent } from './pagina/inicio-general/inicio-general.component';
+import { RevisarProductosComponentComponent } from './pagina/revisar-productos-component/revisar-productos-component.component';
+import { UsuarioInterceptor } from './interceptor/usuario.interceptor';
+import { ValoracionComponent } from './pagina/valoracion/valoracion.component';
 
 
 @NgModule({
@@ -49,6 +52,8 @@ import { InicioGeneralComponent } from './pagina/inicio-general/inicio-general.c
     VerDetalleComponent,
     UsuarioIngresadoComponent,
     InicioGeneralComponent,
+    RevisarProductosComponentComponent,
+    ValoracionComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +62,9 @@ import { InicioGeneralComponent } from './pagina/inicio-general/inicio-general.c
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: UsuarioInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

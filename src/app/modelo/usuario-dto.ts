@@ -2,6 +2,7 @@ export class UsuarioDTO {
     nombre:string ="";
     email:string ="";
     direccion:string ="";
+    cedula:number = 0;
     telefono:string ="";
     password:string ="";
     confirmarPassword:string ="";

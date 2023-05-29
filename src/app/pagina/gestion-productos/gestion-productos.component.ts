@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoGetDTO } from 'src/app/modelo/producto-get-dto';
 import { ProductoService } from 'src/app/servicios/producto.service';
+import { TokenService } from '../../servicios/token.service';
+import { Alerta } from 'src/app/modelo/alerta';
 
 @Component({
   selector: 'app-gestion-productos',
@@ -9,17 +11,19 @@ import { ProductoService } from 'src/app/servicios/producto.service';
 })
 export class GestionProductosComponent {
 
-    productos: ProductoGetDTO[];
+  productos: ProductoGetDTO[];
   textoBtnEliminar: string = "";
   seleccionados: ProductoGetDTO[];
+  alerta!: Alerta;
 
-  constructor(private productoServicio: ProductoService) {
+  constructor(private productoServicio: ProductoService,  private tokenService : TokenService ) {
     this.productos = [];
     this.seleccionados = [];
-    this.textoBtnEliminar= "";
+    this.textoBtnEliminar = "";
   }
   ngOnInit(): void {
-    this.productos = this.productoServicio.listar();
+
+    this.listarProductos();
   }
   public seleccionar(producto: ProductoGetDTO, estado: boolean) {
     if (estado) {
@@ -42,11 +46,40 @@ export class GestionProductosComponent {
       this.textoBtnEliminar = "";
     }
   }
-  public borrarProductos(){
+  public borrarProductos() {
     this.seleccionados.forEach(e => {
-    this.productos = this.productos.filter(i => i != e);
+
+      this.eliminarProducto(e.codigo);
+      
+      this.productos = this.productos.filter(i => i != e);
     });
     this.seleccionados = [];
     this.actualizarMensaje();
-    }
+  }
+
+  public listarProductos (){
+
+    let id = this.tokenService.getUserId();
+
+    this.productoServicio.listar(id).subscribe({
+      next: data => {
+        this.productos = data.respuesta;
+      },
+      error: error => {
+        console.log(error.error);
+      }
+    });
+  }
+
+  public eliminarProducto(codigo: number){
+
+    this.productoServicio.eliminar(codigo).subscribe({
+      next: data => {
+        this.alerta =  new Alerta(data.respuesta,"succes");
+      },
+      error: error => {
+        this.alerta =  new Alerta(error.error,"danger");
+      }
+    });
+  }
 }

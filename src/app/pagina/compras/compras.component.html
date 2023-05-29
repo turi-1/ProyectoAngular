@@ -1,52 +1,133 @@
-<div class="card p-5">
-    <form>
-        <div class="table-responsive text-center">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th style="width: 35%;">Producto</th>
-                        <th style="width: 20%;">Precio</th>
-                        <th style="width: 20%;">Unidades</th>
-                        <th style="width: 20%;">Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of productos">
-                        <td></td>
-                        <td>
-                            <div class="d-flex text-start align-items-center">
-                                <div class="col-4 me-3 ms-3">
-                                    <img [src]="item.imagen[0]" width="100%" />
-                                </div>
-                                <span class="col-8">{{item.nombre}}</span>
-                            </div>
-                        </td>
-                        <td class="align-middle">
-                            <span>$ {{item.precio}}</span>
-                        </td>
-                        <td class="align-middle">
+<div class="card p-4">
+    <div class="mb-3">
+        <!-- <button type="button" class="btn btn-success me-2" routerLink="/transaccion"><i class="fa-solid fa-plus me-1"></i>
+            Crear</button>
+        <button type="button" class="btn btn-danger" [disabled]="seleccionados.length == 0" data-bs-toggle="modal"
+            data-bs-target="#borrar"><i class="fa-solid fa-trash me-1"></i> Eliminar
+            {{textoBtnEliminar}}</button> -->
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>codigo</th>
+                <th>Fecha</th>
+                <th>valor Total</th>
+                <th>codigo Usuario</th>
+                <th>Metodo de pago</th>
+                <th>Detalle</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr *ngFor="let item of transacciones">
 
-                            <input type="number" name="unidades" class="form-control
-    
-    text-center" [(ngModel)]="item.unidades" min="0" />
+                <td><input #check class="form-check-input" type="checkbox" (change)="seleccionar(item,
+                    check.checked)" /></td>
+                <td>
+                    <p>{{item.codigo}}</p>
+                </td>
+                <td>
+                    <p>{{item.fecha}}</p>
+                </td>
+                <td>
+                    <p>{{item.valorTotal}}</p>
+                </td>
+                <td>
+                    <p>{{item.codigoUsuario}}</p>
+                </td>
+                <td>
+                    <p>{{item.metodoPago}}</p>
+                </td>
 
-                        </td>
-                        <td class="align-middle">
-                            <span>$ CALCULAR VALOR (Mutiplicar precio por unidades)</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="mt-5 d-flex justify-content-end">
-            <div class="text-end">
-                <h4>Total compras:</h4>
-              
+                <button type="button" class="btn btn-danger" 
+                    data-bs-toggle="modal" data-bs-target="#DetalleTransaccion" (click)="abrirDetalle(item.codigo)"><i class="fa-solid fa-trash me-1"></i>Ver Detalle</button>
+
+                <!-- <td>
+                    <button type="button" class="btn btn-warning rounded-circle me-2"
+                        routerLink="/editar-transaccion/{{item.codigo}}"><i class="fa-solid fa-pen"></i></button>
+                </td> -->
+                <!-- <td><input #check class="form-check-input" type="checkbox" (change)="seleccionar(item,
+                    check.checked)" /></td> -->
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal fade" id="borrar" tabindex="-1" aria-labelledby="borrarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="borrarModalLabel">Eliminar producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea borrar los elementos seleccionados?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    (click)="borrarTransaccion()">Sí</button>
             </div>
         </div>
-    </form>
-    <div *ngIf="productos.length == 0" class="alert alert-warning d-flex align-items-center" role="alert">
-        <i class="fa-solid fa-triangle-exclamation"></i><span class="ms-3">No tiene compras realizadas</span>
+    </div>
+</div>
+
+<div class="modal fade" id="DetalleTransaccion" tabindex="-1" aria-labelledby="DetalleTransaccionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="DetalleTransaccionModalLabel">Detalle Producto</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <!-- <th></th> -->
+                            <th>codigoProducto</th>
+                            <th>Precio</th>
+                            <th>Unidades</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr *ngFor="let item of detalleTransacciones">
+
+                            <!-- <td><input #check class="form-check-input" type="checkbox" (change)="seleccionar(item,
+                                check.checked)" /></td> -->
+                            <td>
+                                <p>{{item.codigoProducto}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.precio}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.unidades}}</p>
+                            </td>
+                            <!-- <td>
+                                <p>{{item.codigoUsuario}}</p>
+                            </td>
+                            <td>
+                                <p>{{item.metodoPago}}</p>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning rounded-circle me-2"
+                                    routerLink="/editar-producto/{{item.codigo}}"><i class="fa-solid fa-pen"></i></button>
+                            </td>
+                            <td><input #check class="form-check-input" type="checkbox" (change)="seleccionar(item,
+                                check.checked)" /></td> -->
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- <p>¿Está seguro que desea borrar los elementos seleccionados?</p> -->
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    (click)="borrarProductos()">Sí</button>
+            </div> -->
+        </div>
     </div>
 </div>

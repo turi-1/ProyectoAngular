@@ -21,7 +21,7 @@
                         <td>
                             <div class="d-flex text-start align-items-center">
                                 <div class="col-4 me-3 ms-3">
-                                    <img [src]="item.productos.imagen[0]" width="100%" />
+                                    <img [src]="item.productos.imagenes[0]" width="100%" />
                                 </div>
                                 <span class="col-8">{{item.productos.nombre}}</span>
                             </div>
@@ -33,7 +33,7 @@
 
                         <input id="value" type="number" name="unidades" class="form-control
     
-                         text-center" [(ngModel)]="item.unidades" min="0" />
+                         text-center" (change)="actualizarValor()" [(ngModel)]="item.unidades" min="0" />
 
                         </td>
                         <td class="align-middle">
@@ -72,8 +72,10 @@
     </div>
         <div class="mt-5 d-flex justify-content-end">
             <div class="text-end">
-                <h4>Valor a pagar: ${{valorTotal}}</h4>
-                <button type="submit" class="btn btn-sm1 btn-outline-primary me-2" >
+                <h4>Valor a pagar {{valorTotal}}</h4>
+                <h4 [(ngModel)]="valorTotal"></h4>
+                <button type="submit" class="btn btn-sm1 btn-outline-primary me-2"  data-bs-toggle="modal"
+                data-bs-target="#comprar" >
                     Comprar <i class="bi bi-bag-check"></i></button>
                 <button type="submit" class="btn btn-sm1 btn-outline-primary" routerLink="/gestion-productos">
                     Volver <i class="bi bi-arrow-bar-left"></i></button>
@@ -86,3 +88,42 @@
     </div>
     
 </div>
+
+
+<div class="modal fade" id="comprar" tabindex="-1" aria-labelledby="comprarModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="borrarModalLabel">Metodos de pago</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <app-alerta [alerta]="alerta"></app-alerta>
+
+                <select class="form-select form-select mb-2"[(ngModel)]="metodoSeleccionado"  aria-label=".form-select-lg example">
+                    <option value="0" selected>Seleccione el metodo de pago</option>
+                    <option value="{{i + 1}}" *ngFor="let item of metodosPagos; let i = index">{{item}}</option>
+                    <!-- <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option> -->
+                  </select>
+
+
+                  <div>
+
+                    Valorar al vendedor
+                  <app-valoracion></app-valoracion>
+                </div>
+
+                  <div class="modal-footer">
+                  <button type="submit" class="btn btn-sm1 btn-outline-primary" (click)="realizarCompra()">
+                     Finalizar compra</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+    

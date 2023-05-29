@@ -10,13 +10,13 @@ export class UsuarioIngresadoComponent {
 
   title = 'Unimarket';
 
-  constructor(private router:Router){
-    
+  constructor(private router: Router) {
+
   }
-  
-  public iraBusqueda(valor:string){
-    if(valor){
+
+  public iraBusqueda(valor: string) {
+    if (valor) {
       this.router.navigate(["/busqueda", valor]);
-}
-}
+    }
+  }
 }

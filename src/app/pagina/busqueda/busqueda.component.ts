@@ -15,6 +15,7 @@ export class BusquedaComponent {
     filtro: ProductoGetDTO[];
 
     constructor(private router:Router, private route: ActivatedRoute, private productoServicio: ProductoService) {
+        
         this.productos = this.productoServicio.listar();
         this.filtro = [];
         this.router = router;
